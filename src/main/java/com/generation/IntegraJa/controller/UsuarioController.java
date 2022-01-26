@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.IntegraJa.model.Usuario;
 import com.generation.IntegraJa.repository.UsuarioRepository;
-import com.generation.farmacia.model.Categoria;
+
 
 /**@author Cesar / Edgar / Pedro Lucas / Edilaine
  * @version v2
