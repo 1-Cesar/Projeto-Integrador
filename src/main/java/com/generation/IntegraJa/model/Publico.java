@@ -1,20 +1,35 @@
 package com.generation.IntegraJa.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 /**@author Cesar
- * @version v1
+ * @version v2
  * @since 26/01/2022 
  * */
 
+@Entity
+@Table (name = "tb_publico")
 public class Publico {
 
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private long idPublico;
 	
+	@NotNull
 	private Boolean lgbtqiapPublico;
 	
+	@NotNull
 	private Boolean mulheresPublico;
 	
+	@NotNull
 	private Boolean pcdsPublico;
 	
+	@NotNull
 	private Boolean indigenasPublico;
 
 	public long getIdPublico() {
