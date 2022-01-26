@@ -3,15 +3,19 @@ package com.generation.IntegraJa.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.IntegraJa.model.Usuario;
 import com.generation.IntegraJa.repository.UsuarioRepository;
+import com.generation.farmacia.model.Categoria;
 
 /**@author Cesar / Edgar / Pedro Lucas / Edilaine
  * @version v2
@@ -40,5 +44,10 @@ public class UsuarioController {
 	@GetMapping("/nomecategoria/{nomecategoria}")
 	public ResponseEntity<List<Usuario>> GetByNomeusuario (@PathVariable String nomeusuario) {
 		return ResponseEntity.ok(repository.findAllByNomeUsuarioContainingIgnoreCase(nomeusuario));
+	}
+	
+	@PostMapping
+	public ResponseEntity<Usuario> post(@RequestBody Usuario usuario) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
 	}
 }
