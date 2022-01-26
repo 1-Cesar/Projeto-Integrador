@@ -8,6 +8,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**@author Cesar
+ * @version v2
+ * @since 26/01/20222 
+ * */
+
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
@@ -19,6 +24,10 @@ public class Usuario {
 	@NotNull
 	@Size(min = 3, max = 100)
 	private String nomeUsuario;
+	
+	@NotNull
+	@Size(min = 3, max = 20)
+	private String telefoneUsuario;
 	
 	@NotNull
 	@Size(min = 5, max = 100)
@@ -61,6 +70,12 @@ public class Usuario {
 	}
 	public void setFotoUsuario(String fotoUsuario) {
 		this.fotoUsuario = fotoUsuario;
+	}
+	public String getTelefoneUsuario() {
+		return telefoneUsuario;
+	}
+	public void setTelefoneUsuario(String telefoneUsuario) {
+		this.telefoneUsuario = telefoneUsuario;
 	}
 		
 }
