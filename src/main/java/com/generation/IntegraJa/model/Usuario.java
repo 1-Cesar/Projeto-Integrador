@@ -1,4 +1,4 @@
-package com.generation.IntegraJa.Model;
+package com.generation.IntegraJa.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +14,7 @@ public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idUsuario;
+	private Long idUsuario;
 	
 	@NotNull
 	@Size(min = 3, max = 100)
@@ -32,10 +32,10 @@ public class Usuario {
 	@Size(min = 5, max = 255)
 	private String fotoUsuario;
 	
-	public long getIdUsuario() {
+	public Long getIdUsuario() {
 		return idUsuario;
 	}
-	public void setIdUsuario(long idUsuario) {
+	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 	public String getNomeUsuario() {
