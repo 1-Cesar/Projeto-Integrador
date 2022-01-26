@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.generation.IntegraJa.model.Usuario;
 import com.generation.IntegraJa.repository.UsuarioRepository;
 
-/**@author Cesar / Edgar
+/**@author Cesar / Edgar / Pedro Lucas / Edilaine
  * @version v2
  * @since 26/01/2022 
  * */
@@ -35,5 +35,10 @@ public class UsuarioController {
 	@GetMapping("/{idUsuario}")
 	public ResponseEntity<Usuario> GetById (@PathVariable long idUsuario) {
 		return repository.findById(idUsuario).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
+	}
+	
+	@GetMapping("/nomecategoria/{nomecategoria}")
+	public ResponseEntity<List<Usuario>> GetByNomeusuario (@PathVariable String nomeusuario) {
+		return ResponseEntity.ok(repository.findAllByNomeUsuarioContainingIgnoreCase(nomeusuario));
 	}
 }
