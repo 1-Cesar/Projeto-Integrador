@@ -7,6 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.generation.IntegraJa.model.Usuario;
 
+/**@author Pedro
+ * @version v2
+ * @since 26/01/2022 
+ * */
+
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	
