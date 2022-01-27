@@ -39,11 +39,11 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/{idUsuario}")
-	public ResponseEntity<Usuario> GetById (@PathVariable long idUsuario) {
+	public ResponseEntity<Usuario> GetById (@PathVariable Long idUsuario) {
 		return repository.findById(idUsuario).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 	
-	@GetMapping("/nomecategoria/{nomecategoria}")
+	@GetMapping("/nomeusuario/{nomeusuario}")
 	public ResponseEntity<List<Usuario>> GetByNomeusuario (@PathVariable String nomeusuario) {
 		return ResponseEntity.ok(repository.findAllByNomeUsuarioContainingIgnoreCase(nomeusuario));
 	}
