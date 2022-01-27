@@ -6,7 +6,7 @@ import com.generation.IntegraJa.model.Publico;
 
 /**@author Pedro
  * @version v2
- * @since 26/01/2022 
+ * @since 27/01/2022 
  * */
 
 @Repository
