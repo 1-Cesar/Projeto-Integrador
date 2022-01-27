@@ -1,17 +1,34 @@
 package com.generation.IntegraJa.model;
 
 import java.util.Date;
+<<<<<<< Updated upstream
 
+=======
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+>>>>>>> Stashed changes
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+<<<<<<< Updated upstream
+=======
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+>>>>>>> Stashed changes
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+<<<<<<< Updated upstream
+=======
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+>>>>>>> Stashed changes
 import com.generation.IntegraJa.model.enums.Tema;
 
 /**
@@ -20,6 +37,11 @@ import com.generation.IntegraJa.model.enums.Tema;
  * @since 27/01/2022 
  * */
 
+<<<<<<< Updated upstream
+=======
+@Entity
+@Table(name = "tb_postagem")
+>>>>>>> Stashed changes
 public class Postagem {
 	
 	@Id
@@ -46,7 +68,13 @@ public class Postagem {
 	@Enumerated(EnumType.STRING)
 	private Tema tema;
 	
+	@ManyToOne
+	@JsonIgnoreProperties("postagens")
 	private Usuario usuario;
+	
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("post")
+	private List<Publico> publico;
 
 	public Long getIdPost() {
 		return idPost;
@@ -111,5 +139,13 @@ public class Postagem {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
+
+	public List<Publico> getPublico() {
+		return publico;
+	}
+
+	public void setPublico(List<Publico> publico) {
+		this.publico = publico;
+	}
+		
 }
