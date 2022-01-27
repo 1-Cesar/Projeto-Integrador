@@ -9,7 +9,7 @@ import com.generation.IntegraJa.model.Postagem;
 
 /**@author Pedro / Edilaine
  * @version v2
- * @since 26/01/2022 
+ * @since 27/01/2022 
  * */
 
 @Repository
