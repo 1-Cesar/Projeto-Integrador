@@ -18,7 +18,7 @@ public class Publico {
 
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private long idPublico;
+	private Long idPublico;
 	
 	@NotNull
 	private Boolean lgbtqiapPublico;
