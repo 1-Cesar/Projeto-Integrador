@@ -17,12 +17,15 @@ import com.generation.IntegraJa.repository.PublicoRepository;
 
 public class PublicoController {
 
+	@Autowired
 	private PublicoRepository repository;
 	
+	@GetMapping
 	public ResponseEntity<List<Publico>> getAll() {
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
+	@GetMapping("/{idPublico}")
 	public ResponseEntity<Publico> GetById (@PathVariable long idPublico) {
 		return repository.findById(idPublico).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
