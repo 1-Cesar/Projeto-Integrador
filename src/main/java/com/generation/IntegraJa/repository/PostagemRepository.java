@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import com.generation.IntegraJa.model.Postagem;
 
+/**@author Pedro / Edilaine
+ * @version v2
+ * @since 26/01/2022 
+ * */
 
 @Repository
 public interface PostagemRepository extends JpaRepository<Postagem, Long> {
