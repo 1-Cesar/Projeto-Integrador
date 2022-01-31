@@ -7,9 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.generation.IntegraJa.model.Usuario;
 
-/**@author Pedro
- * @version v2
- * @since 26/01/2022 
+/**
+ * @author Pedro Lucas
+ * @version 0.0.1
+ * @since 0.0.1 - 26/01/2022 
+ * 
  * */
 
 @Repository
