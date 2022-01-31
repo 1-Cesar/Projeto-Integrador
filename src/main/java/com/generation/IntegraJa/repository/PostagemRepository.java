@@ -7,14 +7,16 @@ import org.springframework.stereotype.Repository;
 
 import com.generation.IntegraJa.model.Postagem;
 
-/**@author Pedro / Edilaine
- * @version v2
- * @since 27/01/2022 
+/**
+ * @author Pedro Lucas
+ * @author Edilaine Souza
+ * @version 0.0.1
+ * @since 0.0.1 - 27/01/2022
+ *  
  * */
 
 @Repository
 public interface PostagemRepository extends JpaRepository<Postagem, Long> {
-	
 	public List<Postagem> findAllByTituloPostContainingIgnoreCase (String tituloPost);
-	public List<Postagem> findAllByTemaPostIgnoreCase   (String temaPost);
+	// public List<Postagem> findAllByTemaIgnoreCase (String tema);
 }
