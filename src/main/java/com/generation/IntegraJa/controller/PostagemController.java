@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,11 +48,17 @@ public class PostagemController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
-	// getPostagemByTitulo() - GET request
+	@GetMapping("/{tituloPost}")
+	public ResponseEntity<List<Postagem>> getByTituloPost(@PathVariable String tituloPost) {
+		return ResponseEntity.ok(repository.findAllByTituloPostContainingIgnoreCase(tituloPost));
+	}
 	
-	// createPostagem() - POST request
+	@PostMapping ("/novoPost")
+	public ResponseEntity<Postagem> post(@RequestBody Postagem postagem) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(postagem));
+	}
 	
-    @PutMapping
+    @PutMapping("/editarPost")
     public ResponseEntity<Postagem> updatePostagem (@RequestBody Postagem postagem){
     	return ResponseEntity
     			.status(HttpStatus.OK)
