@@ -10,9 +10,12 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-/**@author Cesar / Edgar
- * @version v2
- * @since 26/01/2022 
+/**
+ * @author Cesar Augusto
+ * @author Edgar Soares Marinho
+ * @version 0.0.1
+ * @since 0.0.1 - 26/01/2022 
+ * 
  * */
 
 @Entity

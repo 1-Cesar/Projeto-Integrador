@@ -24,9 +24,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.generation.IntegraJa.model.enums.Tema;
 
 /**
- * @author Edgar
- * @version v2
- * @since 27/01/2022
+ * @author Edgar Soares Marinho
+ * @version 0.0.1
+ * @since 0.0.1 - 27/01/2022
  */
 
 @Entity

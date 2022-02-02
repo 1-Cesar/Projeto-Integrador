@@ -19,9 +19,16 @@ import com.generation.IntegraJa.model.Usuario;
 import com.generation.IntegraJa.repository.UsuarioRepository;
 
 
-/**@author Cesar / Edgar / Pedro Lucas / Edilaine
- * @version v2
- * @since 26/01/2022 
+/**
+ * @author Cesar Augusto
+ * @author Edgar Soares Marinho
+ * @author Pedro Lucas
+ * @author Edilaine Souza
+ * @version 0.0.1
+ * @since 0.0.1 - 26/01/2022
+ * 
+ * Implementa o CRUD da UsuarioController
+ *
  * */
 
 
@@ -34,32 +41,39 @@ public class UsuarioController {
 	private UsuarioRepository repository;
 	
 	@GetMapping
-	public ResponseEntity<List<Usuario>> getAll() {
+	public ResponseEntity<List<Usuario>> getAllUsuarios () {
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
 	@GetMapping("/{idUsuario}")
-	public ResponseEntity<Usuario> GetById (@PathVariable Long idUsuario) {
-		return repository.findById(idUsuario).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
+	public ResponseEntity<Usuario> getUsuarioById (@PathVariable Long idUsuario) {
+		return repository.findById(idUsuario)
+				.map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.notFound().build());
 	}
 	
-	@GetMapping("/nomeusuario/{nomeusuario}")
-	public ResponseEntity<List<Usuario>> GetByNomeusuario (@PathVariable String nomeusuario) {
-		return ResponseEntity.ok(repository.findAllByNomeUsuarioContainingIgnoreCase(nomeusuario));
+	@GetMapping("/nome/{nome}")
+	public ResponseEntity<List<Usuario>> getUsuarioByNome (@PathVariable String nome) {
+		return ResponseEntity
+				.ok(repository.findAllByNomeUsuarioContainingIgnoreCase(nome));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Usuario> post(@RequestBody Usuario usuario) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
+	public ResponseEntity<Usuario> createUsuario (@RequestBody Usuario usuario) {
+		return ResponseEntity
+				.status(HttpStatus.CREATED)
+				.body(repository.save(usuario));
 	}
 	
 	@PutMapping
-	public ResponseEntity<Usuario> put(@RequestBody Usuario usuario) {
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(usuario));
+	public ResponseEntity<Usuario> updateUsuario (@RequestBody Usuario usuario) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(repository.save(usuario));
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable long id) {
+	public void deleteUsuario(@PathVariable long id) {
 		repository.deleteById(id);
 	}
 }
