@@ -18,5 +18,5 @@ import com.generation.IntegraJa.model.Postagem;
 @Repository
 public interface PostagemRepository extends JpaRepository<Postagem, Long> {
 	public List<Postagem> findAllByTituloPostContainingIgnoreCase (String tituloPost);
-	// public List<Postagem> findAllByTemaIgnoreCase (String tema);
+	public List<Postagem> findAllByTema (String tema);
 }
