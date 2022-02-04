@@ -5,6 +5,8 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.generation.IntegraJa.model.Usuario;
+
 /**
  * @author Edgar Soares Marinho
  * @version 0.0.1
@@ -18,9 +20,9 @@ public class UserDetailsImpl implements UserDetails{
 	private String email;
 	private String senha;
 	
-	public UserDetailsImpl(String email, String senha) {
-		this.email = email;
-		this.senha = senha;
+	public UserDetailsImpl(Usuario usuario) {
+		this.email = usuario.getEmailUsuario();
+		this.senha = usuario.getSenhaUsuario();
 	}
 
 	public UserDetailsImpl() {}

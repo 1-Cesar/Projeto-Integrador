@@ -1,5 +1,12 @@
 package com.generation.IntegraJa.dto;
 
+/**
+ * @author Pedro Lucas Silvério
+ * @version 0.0.1
+ * @since 0.0.1 - 04/02/2022 
+ * 
+ * */
+
 public class UsuarioCredentialsDTO {
 
 	
