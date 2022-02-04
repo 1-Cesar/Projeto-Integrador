@@ -1,6 +1,8 @@
 package com.generation.IntegraJa.service;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.IntegraJa.dto.UsuarioCredentialsDTO;
+import com.generation.IntegraJa.dto.UsuarioDTO;
 import com.generation.IntegraJa.dto.UsuarioLoginDTO;
 import com.generation.IntegraJa.model.Usuario;
 import com.generation.IntegraJa.repository.UsuarioRepository;
@@ -21,6 +24,7 @@ import com.generation.IntegraJa.repository.UsuarioRepository;
 /**
  * @author Cesar Augusto
  * @author Pedro Lucas Silvério
+ * @author Edgar Soares Marinho
  * @date 04/02/2022
  */
 
@@ -72,18 +76,69 @@ public class UsuarioService {
 	private String basicTokenGenerator(String email, String senha) {
 		String structure = email + ":" + senha;
 		byte[] structureBase64 = Base64.encodeBase64(structure.getBytes(Charset.forName("US-ASCII")));
-		return "Basic" + new String(structureBase64);
+		return "Basic " + new String(structureBase64);
 	}
 	
+	public ResponseEntity<List<UsuarioDTO>> getAllUsuarios(){
+		List<Usuario> usuarios = repository.findAll();
+		
+		List<UsuarioDTO> usuariosDTOs = new ArrayList<>();
+		for (Usuario usuario : usuarios) {
+			usuariosDTOs.add(modelToDTO(usuario));
+		}
+		
+		if (usuarios.isEmpty()) {
+			return ResponseEntity.status(204).build();
+		} else {
+			return ResponseEntity.status(200).body(usuariosDTOs); 
+		}
+	}
 	
+	public ResponseEntity<UsuarioDTO> buscarPorID(Long id){
+		return repository.findById(id)
+				.map(resp -> ResponseEntity.status(200).body(modelToDTO(resp)))
+				.orElseGet(() -> {
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id Não encontrado");
+				});		
+	}
 	
+	public UsuarioDTO modelToDTO (Usuario usuario){
+
+		UsuarioDTO dto = new UsuarioDTO();
+		dto.setId(usuario.getIdUsuario());
+		dto.setNome(usuario.getNomeUsuario());
+		dto.setEmail(usuario.getEmailUsuario());
+		dto.setFoto(usuario.getFotoUsuario());
+
+		return dto;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
+	@SuppressWarnings("rawtypes")
+	public ResponseEntity deleteUsuario(Long id) {
+		Optional<Usuario> optional = repository.findById(id);
+		
+		if (optional.isPresent()) {
+			repository.deleteById(id);
+			return ResponseEntity.status(200).build();
+		} else {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id não encontrado");
+		}
+	}
+
+	public ResponseEntity<List<UsuarioDTO>> buscarPorNome(String nome) {
+		List<Usuario> usuarios = repository.findAllByNomeUsuarioContainingIgnoreCase(nome);
+		
+		List<UsuarioDTO> usuariosDTOs = new ArrayList<>();
+		for (Usuario usuario : usuarios) {
+			usuariosDTOs.add(modelToDTO(usuario));
+		}
+		
+		if (usuarios.isEmpty()) {
+			return ResponseEntity.status(204).build();
+		} else {
+			return ResponseEntity.status(200).body(usuariosDTOs); 
+		}
+		
+	}
 	
 }
