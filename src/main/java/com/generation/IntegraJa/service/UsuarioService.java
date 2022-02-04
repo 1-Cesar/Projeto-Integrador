@@ -1,7 +1,11 @@
 package com.generation.IntegraJa.service;
 
+import java.nio.charset.Charset;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +14,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.IntegraJa.dto.UsuarioCredentialsDTO;
+import com.generation.IntegraJa.dto.UsuarioLoginDTO;
 import com.generation.IntegraJa.model.Usuario;
 import com.generation.IntegraJa.repository.UsuarioRepository;
 
 /**
  * @author Cesar Augusto
+ * @author Pedro Lucas Silvério
  * @date 04/02/2022
  */
 
@@ -42,5 +48,42 @@ public class UsuarioService {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder.encode(senhaUsuario);
 	}
+	
+	public ResponseEntity<UsuarioCredentialsDTO> login (@Valid UsuarioLoginDTO dto) {
+		return repository.findByEmailUsuario(dto.getEmail()).map(resp -> {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			
+			if (encoder.matches(dto.getSenha(), resp.getSenhaUsuario())) {
+				credentialsDTO = new UsuarioCredentialsDTO(
+						basicTokenGenerator(dto.getEmail(), dto.getSenha()),
+						resp.getIdUsuario(),
+						resp.getEmailUsuario());
+				return ResponseEntity.status(HttpStatus.OK).body(credentialsDTO);
+			} else {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Senha Inválida!");
+			}
+			
+		}).orElseThrow(() -> {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário não existe!");
+		});
+		
+	}
+
+	private String basicTokenGenerator(String email, String senha) {
+		String structure = email + ":" + senha;
+		byte[] structureBase64 = Base64.encodeBase64(structure.getBytes(Charset.forName("US-ASCII")));
+		return "Basic" + new String(structureBase64);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
