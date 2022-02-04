@@ -2,6 +2,8 @@ package com.generation.IntegraJa.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.generation.IntegraJa.dto.UsuarioCredentialsDTO;
+import com.generation.IntegraJa.dto.UsuarioDTO;
+import com.generation.IntegraJa.dto.UsuarioLoginDTO;
 import com.generation.IntegraJa.model.Usuario;
 import com.generation.IntegraJa.repository.UsuarioRepository;
+import com.generation.IntegraJa.service.UsuarioService;
 
 
 /**
@@ -39,30 +45,31 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioRepository repository;
+	@Autowired UsuarioService service;
+	
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Usuario> cadastrar (@RequestBody Usuario usuario){
+		return service.registrar(usuario);
+	}
+	
+	@PostMapping("/logar")
+	public ResponseEntity<UsuarioCredentialsDTO> login (@Valid @RequestBody UsuarioLoginDTO usuario){
+		return service.login(usuario);
+	}
 	
 	@GetMapping
-	public ResponseEntity<List<Usuario>> getAllUsuarios () {
-		return ResponseEntity.ok(repository.findAll());
+	public ResponseEntity<List<UsuarioDTO>> getAllUsuarios () {
+		return service.getAllUsuarios();
 	}
 	
 	@GetMapping("/{idUsuario}")
-	public ResponseEntity<Usuario> getUsuarioById (@PathVariable Long idUsuario) {
-		return repository.findById(idUsuario)
-				.map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.notFound().build());
+	public ResponseEntity<UsuarioDTO> getUsuarioById (@PathVariable Long idUsuario) {
+		return service.buscarPorID(idUsuario);
 	}
 	
 	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Usuario>> getUsuarioByNome (@PathVariable String nome) {
-		return ResponseEntity
-				.ok(repository.findAllByNomeUsuarioContainingIgnoreCase(nome));
-	}
-	
-	@PostMapping
-	public ResponseEntity<Usuario> createUsuario (@RequestBody Usuario usuario) {
-		return ResponseEntity
-				.status(HttpStatus.CREATED)
-				.body(repository.save(usuario));
+	public ResponseEntity<List<UsuarioDTO>> getUsuarioByNome (@PathVariable String nome) {
+		return service.buscarPorNome(nome);
 	}
 	
 	@PutMapping
@@ -74,6 +81,7 @@ public class UsuarioController {
 	
 	@DeleteMapping("/{id}")
 	public void deleteUsuario(@PathVariable long id) {
-		repository.deleteById(id);
+		service.deleteUsuario(id);
 	}
+	
 }
