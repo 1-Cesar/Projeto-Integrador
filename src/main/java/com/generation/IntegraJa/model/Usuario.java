@@ -51,8 +51,11 @@ public class Usuario {
 	@NotNull
 	@Size(min = 5, max = 255)
 	private String fotoUsuario;
+
+	@NotNull
+	private String tipoUsuario;
 	
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagens;
 	
@@ -104,6 +107,14 @@ public class Usuario {
 		this.telefoneUsuario = telefoneUsuario;
 	}
 	
+	public String getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
 	public List<Postagem> getPostagens() {
 		return postagens;
 	}
@@ -111,5 +122,5 @@ public class Usuario {
 	public void setPostagens(List<Postagem> postagens) {
 		this.postagens = postagens;
 	}
-		
+	
 }

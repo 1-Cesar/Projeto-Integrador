@@ -61,7 +61,10 @@ public class UsuarioService {
 				credentialsDTO = new UsuarioCredentialsDTO(
 						basicTokenGenerator(dto.getEmail(), dto.getSenha()),
 						resp.getIdUsuario(),
-						resp.getEmailUsuario());
+						resp.getNomeUsuario(),
+						resp.getEmailUsuario(),
+						resp.getFotoUsuario(),
+						resp.getTipoUsuario());
 				return ResponseEntity.status(HttpStatus.OK).body(credentialsDTO);
 			} else {
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Senha Inválida!");
@@ -109,6 +112,7 @@ public class UsuarioService {
 		dto.setNome(usuario.getNomeUsuario());
 		dto.setEmail(usuario.getEmailUsuario());
 		dto.setFoto(usuario.getFotoUsuario());
+		dto.setTipo(usuario.getTipoUsuario());
 
 		return dto;
 	}
@@ -141,4 +145,14 @@ public class UsuarioService {
 		
 	}
 	
+	public ResponseEntity<UsuarioDTO> atualizar (Usuario modificado){
+		Optional <Usuario> optional = repository.findById(modificado.getIdUsuario());
+		
+		if(optional.isPresent()) {
+			modificado.setSenhaUsuario(criptografarSenha(modificado.getSenhaUsuario()));
+			return ResponseEntity.status(200).body(modelToDTO(repository.save(modificado)));
+		} else {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id não encontrado");
+		}
+	}
 }

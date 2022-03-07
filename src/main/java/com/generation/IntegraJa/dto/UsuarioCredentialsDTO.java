@@ -9,15 +9,20 @@ package com.generation.IntegraJa.dto;
 
 public class UsuarioCredentialsDTO {
 
-	
 	private String basicToken;
 	private Long id;
+	private String nome;
 	private String email;
+	private String foto;
+	private String tipo;
 	
-	public UsuarioCredentialsDTO(String basicToken, Long id, String email) {
+	public UsuarioCredentialsDTO(String basicToken, Long id, String nome, String email, String foto, String tipo) {
 		this.basicToken = basicToken;
 		this.id = id;
+		this.nome = nome;
 		this.email = email;
+		this.foto = foto;
+		this.tipo = tipo;
 	}
 
 	public String getBasicToken() {
@@ -36,6 +41,14 @@ public class UsuarioCredentialsDTO {
 		this.id = id;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -43,7 +56,21 @@ public class UsuarioCredentialsDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
-	
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+		
 }
