@@ -6,6 +6,7 @@ public class UsuarioDTO {
 	private String nome;
 	private String email;
 	private String foto;
+	private String tipo;
 	
 	public Long getId() {
 		return id;
@@ -38,5 +39,13 @@ public class UsuarioDTO {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+		
 }

@@ -2,17 +2,11 @@ package com.generation.IntegraJa.model;
 
 import java.util.Date;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,7 +15,6 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import com.generation.IntegraJa.model.enums.Tema;
 
 /**
  * @author Edgar Soares Marinho
@@ -54,16 +47,15 @@ public class Postagem {
 	@NotNull
 	private Long likesPost;
 
-	@Enumerated(EnumType.STRING)
-	private Tema tema;
-
+	@NotNull
 	@ManyToOne
 	@JsonIgnoreProperties("postagens")
 	private Usuario usuario;
 
-	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("post")
-	private List<Publico> publico;
+	@NotNull
+	@ManyToOne
+	@JsonIgnoreProperties("postagens")
+	private Tema tema;
 
 	public Long getIdPost() {
 		return idPost;
@@ -113,14 +105,6 @@ public class Postagem {
 		this.likesPost = likesPost;
 	}
 
-	public Tema getTema() {
-		return tema;
-	}
-
-	public void setTema(Tema tema) {
-		this.tema = tema;
-	}
-
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -129,12 +113,12 @@ public class Postagem {
 		this.usuario = usuario;
 	}
 
-	public List<Publico> getPublico() {
-		return publico;
+	public Tema getTema() {
+		return tema;
 	}
 
-	public void setPublico(List<Publico> publico) {
-		this.publico = publico;
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 
 }

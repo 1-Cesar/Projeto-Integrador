@@ -1,8 +1,9 @@
 package com.generation.IntegraJa.repository;
 
+import com.generation.IntegraJa.model.Tema;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.generation.IntegraJa.model.Publico;
 
 /**@author Pedro Lucas
  * @version 0.0.1
@@ -10,4 +11,4 @@ import com.generation.IntegraJa.model.Publico;
  * */
 
 @Repository
-public interface PublicoRepository extends JpaRepository<Publico, Long>{}
+public interface TemaRepository extends JpaRepository<Tema, Long>{}

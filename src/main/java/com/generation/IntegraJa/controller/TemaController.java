@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.generation.IntegraJa.model.Publico;
-import com.generation.IntegraJa.repository.PublicoRepository;
+import com.generation.IntegraJa.model.Tema;
+import com.generation.IntegraJa.repository.TemaRepository;
 
 /**@author Cesar Augusto
  * @author Edgar Soares Marinho
@@ -29,41 +29,41 @@ import com.generation.IntegraJa.repository.PublicoRepository;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/publico")
-public class PublicoController {
+@RequestMapping("/tema")
+public class TemaController {
 
 	@Autowired
-	private PublicoRepository repository;
+	private TemaRepository repository;
 	
 	@GetMapping
-	public ResponseEntity<List<Publico>> getAllPublico() {
+	public ResponseEntity<List<Tema>> getAllTemas() {
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
-	@GetMapping("/{idPublico}")
-	public ResponseEntity<Publico> getPublicoById (@PathVariable long idPublico) {
-		return repository.findById(idPublico)
+	@GetMapping("/{id}")
+	public ResponseEntity<Tema> getTemaById (@PathVariable long id) {
+		return repository.findById(id)
 				.map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Publico> createNewPublico(@RequestBody Publico publico){
+	public ResponseEntity<Tema> createNewTema(@RequestBody Tema tema){
 		return ResponseEntity
 				.status(HttpStatus.CREATED)
-				.body(repository.save(publico));
+				.body(repository.save(tema));
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<Publico> updatePublico(@RequestBody Publico publico){
+	public ResponseEntity<Tema> updateTema(@RequestBody Tema tema){
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(repository.save(publico));
+				.body(repository.save(tema));
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public void deletePublico(@PathVariable long id) {
+	public void deleteTema(@PathVariable long id) {
 		repository.deleteById(id);
 	}
-	
+
 }

@@ -14,13 +14,15 @@ public class UsuarioCredentialsDTO {
 	private String nome;
 	private String email;
 	private String foto;
+	private String tipo;
 	
-	public UsuarioCredentialsDTO(String basicToken, Long id, String nome, String email, String foto) {
+	public UsuarioCredentialsDTO(String basicToken, Long id, String nome, String email, String foto, String tipo) {
 		this.basicToken = basicToken;
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.foto = foto;
+		this.tipo = tipo;
 	}
 
 	public String getBasicToken() {
@@ -62,5 +64,13 @@ public class UsuarioCredentialsDTO {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+		
 }
