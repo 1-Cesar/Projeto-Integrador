@@ -97,9 +97,9 @@ public class UsuarioService {
 		}
 	}
 	
-	public ResponseEntity<UsuarioDTO> buscarPorID(Long id){
+	public ResponseEntity<Usuario> buscarPorID(Long id){
 		return repository.findById(id)
-				.map(resp -> ResponseEntity.status(200).body(modelToDTO(resp)))
+				.map(resp -> ResponseEntity.status(200).body(resp))
 				.orElseGet(() -> {
 					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id Não encontrado");
 				});		
