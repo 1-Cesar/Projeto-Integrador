@@ -59,11 +59,11 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<UsuarioDTO> getUsuarioById (@PathVariable Long id) {
+	public ResponseEntity<Usuario> getUsuarioById (@PathVariable Long id) {
 		return service.buscarPorID(id);
 	}
 	
-	@GetMapping("/{nome}")
+	@GetMapping("/nome/{nome}")
 	public ResponseEntity<List<UsuarioDTO>> getUsuarioByNome (@PathVariable String nome) {
 		return service.buscarPorNome(nome);
 	}
