@@ -47,6 +47,11 @@ public class TemaController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 
+	@GetMapping("/desc/{desc}")
+	public ResponseEntity<List<Tema>> getTemaByDesc (@PathVariable String desc) {
+		return ResponseEntity.ok(repository.findAllByDescTemaContainingIgnoreCase(desc));
+	}
+
 	@PostMapping
 	public ResponseEntity<Tema> createNewTema(@RequestBody Tema tema){
 		return ResponseEntity
