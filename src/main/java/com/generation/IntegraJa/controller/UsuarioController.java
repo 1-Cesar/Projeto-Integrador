@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.IntegraJa.dto.UsuarioCredentialsDTO;
-import com.generation.IntegraJa.dto.UsuarioDTO;
 import com.generation.IntegraJa.dto.UsuarioLoginDTO;
 import com.generation.IntegraJa.model.Usuario;
 import com.generation.IntegraJa.service.UsuarioService;
@@ -54,7 +53,7 @@ public class UsuarioController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<UsuarioDTO>> getAllUsuarios () {
+	public ResponseEntity<List<Usuario>> getAllUsuarios () {
 		return service.getAllUsuarios();
 	}
 	
@@ -64,12 +63,12 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<UsuarioDTO>> getUsuarioByNome (@PathVariable String nome) {
+	public ResponseEntity<List<Usuario>> getUsuarioByNome (@PathVariable String nome) {
 		return service.buscarPorNome(nome);
 	}
 	
 	@PutMapping
-	public ResponseEntity<UsuarioDTO> updateUsuario (@RequestBody Usuario usuario) {
+	public ResponseEntity<Usuario> updateUsuario (@RequestBody Usuario usuario) {
 		return service.atualizar(usuario);
 	}
 	

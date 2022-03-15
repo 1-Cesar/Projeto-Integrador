@@ -1,7 +1,6 @@
 package com.generation.IntegraJa.service;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.IntegraJa.dto.UsuarioCredentialsDTO;
-import com.generation.IntegraJa.dto.UsuarioDTO;
 import com.generation.IntegraJa.dto.UsuarioLoginDTO;
 import com.generation.IntegraJa.model.Usuario;
 import com.generation.IntegraJa.repository.UsuarioRepository;
@@ -37,10 +35,10 @@ public class UsuarioService {
 	private UsuarioRepository repository;
 	
 	public ResponseEntity<Usuario> registrar (Usuario novoUsuario) {
-		Optional<Usuario> optional = repository.findByEmailUsuario(novoUsuario.getEmailUsuario());
+		Optional<Usuario> optional = repository.findByEmail(novoUsuario.getEmail());
 		
 		if(optional.isEmpty()) {
-			novoUsuario.setSenhaUsuario(criptografarSenha(novoUsuario.getSenhaUsuario()));
+			novoUsuario.setSenha(criptografarSenha(novoUsuario.getSenha()));
 			return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(novoUsuario));
 		}
 		else {
@@ -48,23 +46,23 @@ public class UsuarioService {
 		}
 	}
 	
-	private String criptografarSenha(String senhaUsuario) {
+	private String criptografarSenha(String senha) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		return encoder.encode(senhaUsuario);
+		return encoder.encode(senha);
 	}
 	
 	public ResponseEntity<UsuarioCredentialsDTO> login (@Valid UsuarioLoginDTO dto) {
-		return repository.findByEmailUsuario(dto.getEmail()).map(resp -> {
+		return repository.findByEmail(dto.getEmail()).map(resp -> {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			
-			if (encoder.matches(dto.getSenha(), resp.getSenhaUsuario())) {
+			if (encoder.matches(dto.getSenha(), resp.getSenha())) {
 				credentialsDTO = new UsuarioCredentialsDTO(
 						basicTokenGenerator(dto.getEmail(), dto.getSenha()),
-						resp.getIdUsuario(),
-						resp.getNomeUsuario(),
-						resp.getEmailUsuario(),
-						resp.getFotoUsuario(),
-						resp.getTipoUsuario());
+						resp.getId(),
+						resp.getNome(),
+						resp.getEmail(),
+						resp.getFoto(),
+						resp.getTipo());
 				return ResponseEntity.status(HttpStatus.OK).body(credentialsDTO);
 			} else {
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Senha Inválida!");
@@ -82,18 +80,13 @@ public class UsuarioService {
 		return "Basic " + new String(structureBase64);
 	}
 	
-	public ResponseEntity<List<UsuarioDTO>> getAllUsuarios(){
+	public ResponseEntity<List<Usuario>> getAllUsuarios(){
 		List<Usuario> usuarios = repository.findAll();
-		
-		List<UsuarioDTO> usuariosDTOs = new ArrayList<>();
-		for (Usuario usuario : usuarios) {
-			usuariosDTOs.add(modelToDTO(usuario));
-		}
-		
+			
 		if (usuarios.isEmpty()) {
 			return ResponseEntity.status(204).build();
 		} else {
-			return ResponseEntity.status(200).body(usuariosDTOs); 
+			return ResponseEntity.status(200).body(usuarios); 
 		}
 	}
 	
@@ -103,18 +96,6 @@ public class UsuarioService {
 				.orElseGet(() -> {
 					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id Não encontrado");
 				});		
-	}
-	
-	public UsuarioDTO modelToDTO (Usuario usuario){
-
-		UsuarioDTO dto = new UsuarioDTO();
-		dto.setId(usuario.getIdUsuario());
-		dto.setNome(usuario.getNomeUsuario());
-		dto.setEmail(usuario.getEmailUsuario());
-		dto.setFoto(usuario.getFotoUsuario());
-		dto.setTipo(usuario.getTipoUsuario());
-
-		return dto;
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -129,28 +110,23 @@ public class UsuarioService {
 		}
 	}
 
-	public ResponseEntity<List<UsuarioDTO>> buscarPorNome(String nome) {
-		List<Usuario> usuarios = repository.findAllByNomeUsuarioContainingIgnoreCase(nome);
-		
-		List<UsuarioDTO> usuariosDTOs = new ArrayList<>();
-		for (Usuario usuario : usuarios) {
-			usuariosDTOs.add(modelToDTO(usuario));
-		}
-		
+	public ResponseEntity<List<Usuario>> buscarPorNome(String nome) {
+		List<Usuario> usuarios = repository.findAllByNomeContainingIgnoreCase(nome);
+			
 		if (usuarios.isEmpty()) {
 			return ResponseEntity.status(204).build();
 		} else {
-			return ResponseEntity.status(200).body(usuariosDTOs); 
+			return ResponseEntity.status(200).body(usuarios); 
 		}
 		
 	}
 	
-	public ResponseEntity<UsuarioDTO> atualizar (Usuario modificado){
-		Optional <Usuario> optional = repository.findById(modificado.getIdUsuario());
+	public ResponseEntity<Usuario> atualizar (Usuario modificado){
+		Optional <Usuario> optional = repository.findById(modificado.getId());
 		
 		if(optional.isPresent()) {
-			modificado.setSenhaUsuario(criptografarSenha(modificado.getSenhaUsuario()));
-			return ResponseEntity.status(200).body(modelToDTO(repository.save(modificado)));
+			modificado.setSenha(optional.get().getSenha());
+			return ResponseEntity.status(200).body((repository.save(modificado)));
 		} else {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id não encontrado");
 		}

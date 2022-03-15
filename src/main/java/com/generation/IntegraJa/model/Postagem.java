@@ -34,14 +34,13 @@ public class Postagem {
 	@Size(min = 5, max = 180)
 	private String tituloPost;
 
-	@NotNull
-	@Size(min = 20, max = 1000)
+	@Size(max = 5000)
 	private String textoPost;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataPost = new java.sql.Date(System.currentTimeMillis());
 
-	@Size(min = 10, max = 255)
+	@Size(min = 10, max = 5000)
 	private String imagemPost;
 
 	@NotNull
