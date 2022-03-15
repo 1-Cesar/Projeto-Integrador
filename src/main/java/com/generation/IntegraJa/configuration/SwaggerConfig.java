@@ -1,4 +1,4 @@
-package com.generation.IntegraJa.config;
+package com.generation.IntegraJa.configuration;
 
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.context.annotation.Bean;

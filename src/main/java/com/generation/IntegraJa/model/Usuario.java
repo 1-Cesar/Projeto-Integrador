@@ -29,98 +29,175 @@ public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idUsuario;
+	private Long id;
 	
 	@NotNull
 	@Size(min = 3, max = 100)
-	private String nomeUsuario;
+	private String nome;
 	
 	@NotNull
 	@Size(min = 3, max = 20)
-	private String telefoneUsuario;
+	private String telefone;
 	
 	@NotNull
 	@Email
 	@Size(min = 5, max = 100)
-	private String emailUsuario;
+	private String email;
 	
 	@NotNull
 	@Size(min = 8, max = 255)
-	private String senhaUsuario;
+	private String senha;
 	
 	@NotNull
-	@Size(min = 5, max = 255)
-	private String fotoUsuario;
+	@Size(min = 5, max = 5000)
+	private String foto;
 
 	@NotNull
-	private String tipoUsuario;
+	private String tipo;
+	
+	@Size(max = 300)
+	private String biografia;
+
+	@Size(max = 50)
+	private String cidade;
+
+	@Size(max = 255)
+	private String formacao;
+
+	@Size(max = 255)
+	private String areaDeAtuacao;
+
+	@Size(max = 255)
+	private String idiomas;
+
+	@Size(max = 5000)
+	private String certificados;
+	
+	@Size(max = 255)
+	private String linkedin;
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagens;
-	
-	public Long getIdUsuario() {
-		return idUsuario;
-	}
-	
-	public void setIdUsuario(Long idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-	
-	public String getNomeUsuario() {
-		return nomeUsuario;
-	}
-	
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
-	}
-	
-	public String getEmailUsuario() {
-		return emailUsuario;
-	}
-	
-	public void setEmailUsuario(String emailUsuario) {
-		this.emailUsuario = emailUsuario;
-	}
-	
-	public String getSenhaUsuario() {
-		return senhaUsuario;
-	}
-	
-	public void setSenhaUsuario(String senhaUsuario) {
-		this.senhaUsuario = senhaUsuario;
-	}
-	
-	public String getFotoUsuario() {
-		return fotoUsuario;
-	}
-	
-	public void setFotoUsuario(String fotoUsuario) {
-		this.fotoUsuario = fotoUsuario;
-	}
-	
-	public String getTelefoneUsuario() {
-		return telefoneUsuario;
-	}
-	
-	public void setTelefoneUsuario(String telefoneUsuario) {
-		this.telefoneUsuario = telefoneUsuario;
-	}
-	
-	public String getTipoUsuario() {
-		return tipoUsuario;
+
+	public Long getId() {
+		return id;
 	}
 
-	public void setTipoUsuario(String tipoUsuario) {
-		this.tipoUsuario = tipoUsuario;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getBiografia() {
+		return biografia;
+	}
+
+	public void setBiografia(String biografia) {
+		this.biografia = biografia;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getFormacao() {
+		return formacao;
+	}
+
+	public void setFormacao(String formacao) {
+		this.formacao = formacao;
+	}
+
+	public String getAreaDeAtuacao() {
+		return areaDeAtuacao;
+	}
+
+	public void setAreaDeAtuacao(String areaDeAtuacao) {
+		this.areaDeAtuacao = areaDeAtuacao;
+	}
+
+	public String getIdiomas() {
+		return idiomas;
+	}
+
+	public void setIdiomas(String idiomas) {
+		this.idiomas = idiomas;
+	}
+
+	public String getCertificados() {
+		return certificados;
+	}
+
+	public void setCertificados(String certificados) {
+		this.certificados = certificados;
 	}
 
 	public List<Postagem> getPostagens() {
 		return postagens;
 	}
-	
+
 	public void setPostagens(List<Postagem> postagens) {
 		this.postagens = postagens;
 	}
-	
+
+	public String getLinkedin() {
+		return linkedin;
+	}
+
+	public void setLinkedin(String linkedin) {
+		this.linkedin = linkedin;
+	}
+
 }
