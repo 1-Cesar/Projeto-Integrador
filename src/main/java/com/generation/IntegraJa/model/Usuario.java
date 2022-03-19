@@ -77,7 +77,7 @@ public class Usuario {
 	private String linkedin;
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("usuario")
+	@JsonIgnoreProperties(value = {"usuario"}, allowSetters = true)
 	private List<Postagem> postagens;
 
 	public Long getId() {

@@ -33,7 +33,7 @@ public class Tema {
 	private String descTema;
 		
 	@OneToMany(mappedBy = "tema", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("tema")
+	@JsonIgnoreProperties(value = {"tema"}, allowSetters = true)
 	private List<Postagem> postagens;
 
 	public Long getIdTema() {
